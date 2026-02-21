@@ -29,6 +29,7 @@
         <button class="tab-btn active" data-tab="teach">Teach</button>
         <button class="tab-btn" data-tab="quiz">Quiz</button>
         <button class="tab-btn" data-tab="speed">Speed Drill</button>
+        <button class="tab-btn" data-tab="flash">Flashcards</button>
         <button class="tab-btn" data-tab="manage">Manage Codes</button>
       </section>
 
@@ -67,6 +68,21 @@
           <p id="speed-feedback" class="feedback"></p>
         </div>
         <button id="speed-start" class="action-btn">Start Speed Drill</button>
+      </section>
+
+      <section class="panel tab-content" id="tab-flash">
+        <p class="mode-help">Flip through flashcards and quiz yourself before revealing the answer.</p>
+        <div class="flash-wrapper">
+          <article class="flash-card" id="flash-card">
+            <p class="flash-label">Show the meaning</p>
+            <h2 id="flash-code">--</h2>
+            <p id="flash-meaning" class="flash-meaning hidden">----</p>
+          </article>
+          <div class="flash-actions">
+            <button id="flash-show" class="action-btn">Show Meaning</button>
+            <button id="flash-next" class="action-btn secondary">Next Card</button>
+          </div>
+        </div>
       </section>
 
       <section class="panel tab-content" id="tab-manage">

@@ -5,6 +5,7 @@ A lightweight training app for radio-code memorization with:
 - Teach mode (searchable flashcard grid)
 - Quiz mode (multiple-choice + streak tracking)
 - Speed Drill mode (60-second challenge)
+- Flashcard mode (flip cards, reveal meaning, shuffle)
 - Manage mode (add code, import/export JSON)
 - Local progress persistence in browser storage
 

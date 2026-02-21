@@ -7,7 +7,8 @@ const state = {
   codes: [],
   stats: { correct: 0, attempts: 0, bestStreak: 0, currentStreak: 0 },
   quiz: null,
-  speed: { active: false, timeLeft: 60, score: 0, timerId: null, current: null }
+  speed: { active: false, timeLeft: 60, score: 0, timerId: null, current: null },
+  flash: { current: null }
 };
 
 const els = {
@@ -30,6 +31,11 @@ const els = {
   speedOptions: document.getElementById("speed-options"),
   speedFeedback: document.getElementById("speed-feedback"),
   speedStart: document.getElementById("speed-start"),
+  flashCard: document.getElementById("flash-card"),
+  flashCode: document.getElementById("flash-code"),
+  flashMeaning: document.getElementById("flash-meaning"),
+  flashNext: document.getElementById("flash-next"),
+  flashShow: document.getElementById("flash-show"),
   exportBtn: document.getElementById("export-btn"),
   importInput: document.getElementById("import-input"),
   addForm: document.getElementById("add-form"),
@@ -47,6 +53,7 @@ async function init() {
   renderStats();
   renderTeach();
   buildQuizQuestion();
+  buildFlashcard();
 }
 
 async function loadCodes() {
@@ -126,6 +133,8 @@ function bindEvents() {
   els.exportBtn.addEventListener("click", exportCodes);
   els.importInput.addEventListener("change", importCodes);
   els.addForm.addEventListener("submit", addCode);
+  els.flashShow.addEventListener("click", toggleFlashMeaning);
+  els.flashNext.addEventListener("click", () => buildFlashcard());
 }
 
 function renderStats() {
@@ -280,6 +289,29 @@ function endSpeedRound() {
 function updateSpeedMeta() {
   els.speedTime.textContent = String(state.speed.timeLeft);
   els.speedScore.textContent = String(state.speed.score);
+}
+
+function buildFlashcard() {
+  if (!state.codes.length) {
+    els.flashCode.textContent = "--";
+    els.flashMeaning.textContent = "Load some codes to practice.";
+    els.flashMeaning.classList.remove("hidden");
+    return;
+  }
+
+  const card = pickRandom(state.codes);
+  state.flash.current = card;
+  els.flashCode.textContent = card.code;
+  els.flashMeaning.textContent = card.meaning;
+  els.flashMeaning.classList.add("hidden");
+  els.flashShow.textContent = "Show Meaning";
+}
+
+function toggleFlashMeaning() {
+  if (!state.flash.current) return;
+  const visible = !els.flashMeaning.classList.contains("hidden");
+  els.flashMeaning.classList.toggle("hidden", visible);
+  els.flashShow.textContent = visible ? "Show Meaning" : "Hide Meaning";
 }
 
 function exportCodes() {
